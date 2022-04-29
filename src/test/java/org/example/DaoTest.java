@@ -1,15 +1,15 @@
 package org.example;
 
-import org.example.dao.CustomerDao;
+import org.example.dao.EmployeeDao;
 import org.example.dao.DaoFactory;
-import org.example.entities.Customer;
+import org.example.entities.Accounts;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class DaoTest {
-    private CustomerDao customerDao;
+    private EmployeeDao customerDao;
 
     @Before
     public void initTables() {
@@ -27,7 +27,7 @@ public class DaoTest {
 
     @Test
     public void testRegistration() {
-        Customer customer = new Customer("cust1", "1");
+        Accounts customer = new Accounts("cust1", "1");
         customerDao.register(customer);
         int id = customerDao.login(customer.getUsername(), customer.getPassword());
         assertEquals(1,id);

@@ -1,9 +1,8 @@
 package org.example;
 
-import org.example.services.CustomerService;
-import org.example.services.EmpService;
+import org.example.services.EmployeeService;
+import org.example.services.ManagerService;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class App 
@@ -11,55 +10,48 @@ public class App
     public static void main( String[] args ){
         boolean flag = true;
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello welcome to __ Bank!");
-        System.out.println("If you have an account, press 1 to login");
+        System.out.println("Hello welcome!");
+        System.out.println("If you have an employee account, press 1 to login");
         System.out.println("If you would like to register, press 2");
-        System.out.println("If you are an employee, press 3");
+        System.out.println("If you are a manager, press 3");
 
         int choice = scanner.nextInt();
         switch(choice) {
             case 1:
-                int customerId = CustomerService.loginCustomer();
+                int user_id = EmployeeService.loginEmployee();
                 while(flag) {
-                    System.out.println("option 1: Apply new bank account");
-                    System.out.println("option 2: See balance");
-                    System.out.println("option 3: Withdraw");
-                    System.out.println("option 4: Deposit");
-                    System.out.println("option 5: Post transfer");
-                    System.out.println("option 6: Accept incoming fund");
-                    System.out.println("option 7: Quit");
+                    System.out.println("option 1: Submit a ticket for reimbursement");
+                    System.out.println("option 2: View your past approved tickets");
+                    System.out.println("option 3: View your pending tickets");
+                    System.out.println("option 4: View your tickets history");
+                    System.out.println("option 5: Quit");
                     int option = scanner.nextInt();
                     switch (option) {
                         case 1:
-                            CustomerService.applyAccount(customerId);
+                            EmployeeService.applyReimbursement(user_id);
                             break;
                         case 2:
-                            CustomerService.viewBalance(customerId);
+                            EmployeeService.viewPastTickets(user_id);
                             break;
                         case 3:
-                            CustomerService.withdrawalAccount(customerId);
+                            EmployeeService.viewPendingTickets(user_id);
                             break;
                         case 4:
-                            CustomerService.depositAccount(customerId);
+                            EmployeeService.viewAllTickets(user_id);
                             break;
                         case 5:
-                            CustomerService.transferAccount(customerId);
-                            break;
-                        case 6:
-                            CustomerService.acceptTransfer(customerId);
-                        case 7:
                             flag = false;
                             break;
                         default:
-                            System.out.println("Please enter 1 - 7");
+                            System.out.println("Please enter 1 - 5");
                     }
                 }
                 break;
             case 2:
-                CustomerService.registerCustomer();
+                EmployeeService.registerCustomer();
                 break;
             case 3:
-                EmpService.loginEmp();
+                ManagerService.loginEmp();
                 while(flag) {
                     System.out.println("option 1: view customer's bank accounts");
                     System.out.println(("option 2: view log of all transactions"));
@@ -69,16 +61,16 @@ public class App
                     int option = scanner.nextInt();
                     switch (option) {
                         case 1:
-                            EmpService.accountView();
+                            ManagerService.accountView();
                             break;
                         case 2:
-                            EmpService.logView();
+                            ManagerService.logView();
                             break;
                         case 3:
-                            EmpService.accountApp();
+                            ManagerService.accountApp();
                             break;
                         case 4:
-                            EmpService.accountReject();
+                            ManagerService.accountReject();
                             break;
                         case 5:
                             flag = false;

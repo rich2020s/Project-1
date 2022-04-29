@@ -1,9 +1,7 @@
 package org.example.dao;
 
 import org.example.ConnectionFactory;
-import org.example.entities.Account;
-import org.example.entities.Employee;
-import org.example.entities.Log;
+import org.example.entities.Tickets;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,11 +11,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class EmpDaoImpl implements EmpDao {
+public class ManagerDaoImpl implements ManagerDao {
 
     Connection connection;
     // When we instantiate, we get this connection.
-    public EmpDaoImpl() {
+    public ManagerDaoImpl() {
         connection = ConnectionFactory.getConnection();
     }
 
@@ -34,7 +32,7 @@ public class EmpDaoImpl implements EmpDao {
                 int id = resultSet.getInt("id");
                 String usernameData = resultSet.getString("username");
                 String passwordData = resultSet.getString("password");
-                Employee employee = new Employee (id, usernameData, passwordData);
+                Manager employee = new Manager(id, usernameData, passwordData);
                 System.out.println("Login successful!");
             }
             else {
@@ -79,8 +77,8 @@ public class EmpDaoImpl implements EmpDao {
     }
 
     @Override
-    public List<Log> viewLog() {
-        List<Log> logList = new ArrayList<>();
+    public List<Tickets> viewLog() {
+        List<Tickets> logList = new ArrayList<>();
         String sql = "SELECT * FROM log;";
 
         try {
@@ -93,7 +91,7 @@ public class EmpDaoImpl implements EmpDao {
                 int accountid = resultSet.getInt("accountid");
                 String description = resultSet.getString("description");
                 double amount = resultSet.getInt("amount");
-                Log log = new Log(id, date, customerid,accountid, description,amount);
+                Tickets log = new Tickets(id, date, customerid,accountid, description,amount);
                 logList.add(log);
 
             }
