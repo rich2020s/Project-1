@@ -3,6 +3,7 @@ package org.example.dao;
 public class DaoFactory {
     private static CustomerDao customerDao;
     private static EmpDao empDao;
+    private static ManagerDao managerDao;
     private DaoFactory(){
     }
 
@@ -18,5 +19,11 @@ public class DaoFactory {
             empDao = new EmpDaoImpl();
         }
         return empDao;
+    }
+    public static ManagerDao getManagerDao() {
+        if (managerDao == null) {
+            managerDao = new ManagerDaoImpl();
+        }
+        return managerDao;
     }
 }
