@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import org.example.ConnectionFactory;
+import org.example.dataStructure.CustomArrayList;
 import org.example.entities.Accounts;
 import org.example.entities.Tickets;
 
@@ -101,7 +102,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public List<Tickets> getPast(int user_id) {
-        List<Tickets> tickets = CustomArrayList<>(); // here I didn't import ArrayList yet because we need to make the custom one.
+        CustomArrayList<Tickets> tickets = new CustomArrayList<>(); // here I didn't import ArrayList yet because we need to make the custom one.
         // I'm only selecting past approved tickets. (should I include the rejected ones too..?
         String sql = "SELECT * FROM ticket WHERE user_id =? AND (state = 'approved' OR state = 'denied');";
         try{
@@ -120,7 +121,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public List<Tickets> getPending(int user_id) {
-        List<Tickets> tickets = CustomArrayList<>(); // here I didn't import ArrayList yet because we need to make the custom one.
+        CustomArrayList<Tickets> tickets = new CustomArrayList<>(); // here I didn't import ArrayList yet because we need to make the custom one.
         String sql = "SELECT * FROM ticket WHERE user_id =? AND state = 'pending';";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -137,7 +138,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     public List<Tickets> getHistory(int user_id) {
-        List<Tickets> tickets = CustomArrayList<>(); // here I didn't import ArrayList yet because we need to make the custom one.
+        CustomArrayList<Tickets> tickets = new CustomArrayList<>(); // here I didn't import ArrayList yet because we need to make the custom one.
         String sql = "SELECT * FROM ticket WHERE user_id =?;";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
