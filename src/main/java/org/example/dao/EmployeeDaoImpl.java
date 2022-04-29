@@ -103,7 +103,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public List<Tickets> getPast(int user_id) {
         List<Tickets> tickets = CustomArrayList<>(); // here I didn't import ArrayList yet because we need to make the custom one.
         // I'm only selecting past approved tickets. (should I include the rejected ones too..?
-        String sql = "SELECT * FROM ticket WHERE user_id =? AND state = 'approved';";
+        String sql = "SELECT * FROM ticket WHERE user_id =? AND (state = 'approved' OR state = 'denied');";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,user_id);
