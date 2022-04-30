@@ -1,20 +1,27 @@
 package org.example.entities;
 
-public class Customer {
+public class Accounts {
+    // id: serial, primary key
+    // username: unique, not null
+    // password: not null
+    // user_type: VARCHAR(1) E for employee or M for manager
     private int id;
     private String username;
     private String password;
+    private String user_type;
 
 
-    public Customer(String username, String password) {
+    public Accounts(String username, String password, String user_type) {
         this.username = username;
         this.password = password;
+        this.user_type = user_type;
     }
 
-    public Customer(int id, String username, String password) {
+    public Accounts(int id, String username, String password, String user_type) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.user_type = user_type;
     }
 
 
@@ -43,13 +50,21 @@ public class Customer {
     }
 
 
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
+    }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Accounts{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", user_type='" + user_type + '\'' +
                 '}';
     }
 }

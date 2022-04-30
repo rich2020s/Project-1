@@ -1,24 +1,28 @@
 package org.example.dao;
 
 public class DaoFactory {
+<<<<<<< HEAD
     private static CustomerDao customerDao;
     private static EmpDao empDao;
+=======
+    private static EmployeeDao employeeDao;
+>>>>>>> Dae02
     private static ManagerDao managerDao;
     private DaoFactory(){
     }
 
-    public static CustomerDao getCustomerDao() {
-        if (customerDao == null) {
-            customerDao = new CustomerDaoImpl();
+    public static EmployeeDao getEmployeeDao() {
+        if (employeeDao == null) {
+            employeeDao = new EmployeeDaoImpl();
         }
-        return customerDao;
+        return employeeDao;
     }
 
-    public static EmpDao getEmpDao() {
-        if (empDao == null) {
-            empDao = new EmpDaoImpl();
+    public static ManagerDao getManagerDao() {
+        if (managerDao == null) {
+            managerDao = new ManagerDaoImpl();
         }
-        return empDao;
+        return managerDao;
     }
     public static ManagerDao getManagerDao() {
         if (managerDao == null) {
