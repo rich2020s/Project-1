@@ -9,7 +9,7 @@ public class Tickets {
     // price: DECIMAL (15,2)
 
     private int id;
-    private Date date;
+    private Date created_at;
     private int user_id;
     private double price;
     private String description;
@@ -17,7 +17,14 @@ public class Tickets {
 
     public Tickets(int id, Date date, int user_id, double price, String description, String state) {
         this.id = id;
-        this.date = date;
+        this.created_at = date;
+        this.user_id = user_id;
+        this.price = price;
+        this.description = description;
+        this.state = state;
+    }
+
+    public Tickets(int user_id, double price, String description, String state) {
         this.user_id = user_id;
         this.price = price;
         this.description = description;
@@ -33,11 +40,11 @@ public class Tickets {
     }
 
     public Date getDate() {
-        return date;
+        return created_at;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.created_at = date;
     }
 
     public int getUser_id() {
@@ -76,7 +83,7 @@ public class Tickets {
     public String toString() {
         return "Tickets{" +
                 "id=" + id +
-                ", date=" + date +
+                ", date=" + created_at +
                 ", user_id=" + user_id +
                 ", price=" + price +
                 ", description='" + description + '\'' +

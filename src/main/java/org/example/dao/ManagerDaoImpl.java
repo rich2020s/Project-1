@@ -3,11 +3,10 @@ package org.example.dao;
 
 import org.example.ConnectionFactory;
 import org.example.dataStructure.CustomArrayList;
-import org.example.entities.Ticket;
 
 import java.sql.*;
 
-import org.example.ConnectionFactory;
+import org.example.entities.Tickets;
 
 public class ManagerDaoImpl implements ManagerDao{
     Connection connection;
@@ -16,15 +15,15 @@ public class ManagerDaoImpl implements ManagerDao{
         connection = ConnectionFactory.getConnection();
     }
     @Override
-    public CustomArrayList<Ticket> viewAllPendingRequests() {
+    public CustomArrayList<Tickets> viewAllPendingRequests() {
         String sql = "SELECT * FROM tickets WHERE state = ?";
-        CustomArrayList<Ticket> tickets = new CustomArrayList<>();
+        CustomArrayList<Tickets> tickets = new CustomArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, "pending");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Ticket ticket = new Ticket(rs.getInt("id"), rs.getDate("created_at"), rs.getInt("user_id"),
+                Tickets ticket = new Tickets(rs.getInt("id"), rs.getDate("created_at"), rs.getInt("user_id"),
                         rs.getDouble("price"), rs.getString("description"), rs.getString("state"));
                 tickets.add(ticket);
             }
@@ -35,14 +34,14 @@ public class ManagerDaoImpl implements ManagerDao{
     }
 
     @Override
-    public CustomArrayList<Ticket> viewAllTickets() {
+    public CustomArrayList<Tickets> viewAllTickets() {
         String sql = "SELECT * FROM tickets where state != 'pending'";
-        CustomArrayList<Ticket> tickets = new CustomArrayList<>();
+        CustomArrayList<Tickets> tickets = new CustomArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Ticket ticket = new Ticket(rs.getInt("id"), rs.getDate("date"), rs.getInt("user_id"),
+                Tickets ticket = new Tickets(rs.getInt("id"), rs.getDate("date"), rs.getInt("user_id"),
                         rs.getDouble("price"), rs.getString("description"), rs.getString("state"));
                 tickets.add(ticket);
             }
@@ -53,7 +52,7 @@ public class ManagerDaoImpl implements ManagerDao{
     }
 
     @Override
-    public int acceptRequest(int id) {
+    public void acceptRequest(int id) {
         String sql = "UPDATE tickets SET state = 'approved' WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -65,17 +64,14 @@ public class ManagerDaoImpl implements ManagerDao{
             } else {
                 throw new SQLException("update failed");
             }
-
-            return 1;
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Something went wrong when updating tickets");
         }
-        return 0;
     }
 
     @Override
-    public int denyRequest(int id) {
+    public void denyRequest(int id) {
         String sql = "UPDATE tickets SET state = 'rejected' WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
@@ -84,18 +80,16 @@ public class ManagerDaoImpl implements ManagerDao{
             if (success == 0) {
                 throw new SQLException("update failed");
             }
-            return 1;
         } catch (SQLException e) {
             System.out.println("Something went wrong when updating tickets");
         }
-        return 0;
     }
 
     @Override
     public void initTables () throws SQLException {
         String accountsQuery = "CREATE TABLE accounts (id SERIAL PRIMARY KEY, username VARCHAR(50), password VARCHAR (50)," +
                 " user_type VARCHAR(1))";
-        String ticketsQuery = "CREATE TABLE tickets (id SERIAL PRIMARY KEY, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, user_id integer, price decimal(10,2), description VARCHAR(100), state VARCHAR(50));";
+        String ticketsQuery = "CREATE TABLE tickets (id SERIAL PRIMARY KEY, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, user_id integer references accounts(id), price decimal(10,2), description VARCHAR(100), state VARCHAR(50));";
         try {
             connection.setAutoCommit(false);
             PreparedStatement prepareAccountsTable = connection.prepareStatement(accountsQuery);
@@ -110,7 +104,7 @@ public class ManagerDaoImpl implements ManagerDao{
         }
     }
     @Override
-    public int insertRequest() throws SQLException {
+    public void insertRequest(Tickets ticket) {
         String sql = "INSERT INTO tickets (id, created_at, user_id, price, description, state) VALUES(default, default, 1, 3.14, 'last Friday', 'pending')";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -121,11 +115,24 @@ public class ManagerDaoImpl implements ManagerDao{
             } else {
                 System.out.println("no data.");
             }
-            return rs.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
     }
-
+    @Override
+    public Tickets getTicketsById(int id) {
+        String sql = "SELECT * from tickets where id = ?";
+        Tickets ticket = null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            ticket = new Tickets(rs.getInt("id"), rs.getDate("created_at"), rs.getInt("user_id"),
+                    rs.getDouble("price"), rs.getString("description"), rs.getString("state"));
+//            return ticket;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ticket;
+    }
 }
