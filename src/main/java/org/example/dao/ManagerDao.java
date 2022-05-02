@@ -1,21 +1,16 @@
 package org.example.dao;
 
-<<<<<<< HEAD
-public interface ManagerDao {
-    public void viewAllPendingRequests();
-    public void viewAllTickets();
-    public void acceptRequest();
-    public void denyRequest();
-=======
-import org.example.entities.Tickets;
+import org.example.dataStructure.CustomArrayList;
+import org.example.entities.Ticket;
 
-import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public interface ManagerDao {
-        public void login(String username, String password);
-        public List<Account> viewAccount(int userId);
-        public List<Tickets> viewLog();
-        public void appAccount(int accountId, int customerId);
-        public void rejAccount(int accountId, int customerId);
->>>>>>> Dae02
+    public CustomArrayList<Ticket> viewAllPendingRequests();
+    public CustomArrayList<Ticket> viewAllTickets();
+    public int acceptRequest(int id);
+    public int denyRequest(int id);
+    public void initTables() throws SQLException;
+    public int insertRequest() throws SQLException;
 }
