@@ -14,4 +14,6 @@ public interface ManagerDao {
     public void initTables() throws SQLException;
     public void insertRequest(Tickets ticket) throws SQLException;
     public Tickets getTicketsById(int id);
+    public void insertFakeEmployee();
+    public void getEmployee();
 }

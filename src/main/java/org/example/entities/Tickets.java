@@ -24,11 +24,10 @@ public class Tickets {
         this.state = state;
     }
 
-    public Tickets(int user_id, double price, String description, String state) {
+    public Tickets(int user_id, double price, String description) {
         this.user_id = user_id;
         this.price = price;
         this.description = description;
-        this.state = state;
     }
 
     public int getId() {

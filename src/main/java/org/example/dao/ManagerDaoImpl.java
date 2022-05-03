@@ -60,9 +60,9 @@ public class ManagerDaoImpl implements ManagerDao{
             int success = preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (success == 1) {
-                System.out.println(" successful");
+                System.out.println("Ticket accepted.");
             } else {
-                throw new SQLException("update failed");
+                throw new SQLException("accept ticket failed");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,15 +105,15 @@ public class ManagerDaoImpl implements ManagerDao{
     }
     @Override
     public void insertRequest(Tickets ticket) {
-        String sql = "INSERT INTO tickets (id, created_at, user_id, price, description, state) VALUES(default, default, 1, 3.14, 'last Friday', 'pending')";
+        String sql = "INSERT INTO tickets (id, created_at, user_id, price, description, state) VALUES(default, default, ?, ?, ?, 'pending')";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.executeUpdate();
-            ResultSet rs = preparedStatement.getGeneratedKeys();
-            if (rs.next()) {
-                System.out.println(rs.getInt(1));
-            } else {
-                System.out.println("no data.");
+            preparedStatement.setInt(1, ticket.getUser_id());
+            preparedStatement.setDouble(2, ticket.getPrice());
+            preparedStatement.setString(3, ticket.getDescription());
+            int success = preparedStatement.executeUpdate();
+            if (success == 0) {
+                System.out.println("Inserted tickets failed.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,18 +121,45 @@ public class ManagerDaoImpl implements ManagerDao{
     }
     @Override
     public Tickets getTicketsById(int id) {
-        String sql = "SELECT * from tickets where id = ?";
+        String sql = "SELECT * from tickets WHERE id = ?";
         Tickets ticket = null;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            ticket = new Tickets(rs.getInt("id"), rs.getDate("created_at"), rs.getInt("user_id"),
+            if (!rs.next()) System.out.println("no ticket found");
+            else {
+                ticket = new Tickets(rs.getInt("id"), rs.getDate("created_at"), rs.getInt("user_id"),
                     rs.getDouble("price"), rs.getString("description"), rs.getString("state"));
-//            return ticket;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return ticket;
+    }
+    @Override
+    public void insertFakeEmployee() {
+        String sql = "INSERT INTO accounts(username, password, user_type) VALUES('test', 'test', 'E')";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            int success = preparedStatement.executeUpdate();
+            if (success == 0) throw new SQLException("Failed to add new employee");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void getEmployee() {
+        String sql = "SELECT * FROM accounts";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                System.out.print("account id:" + rs.getInt("id"));
+                System.out.println("username: " + rs.getString("username"));
+            }
+        }catch (SQLException e) {
+                e.printStackTrace();
+            }
     }
 }
