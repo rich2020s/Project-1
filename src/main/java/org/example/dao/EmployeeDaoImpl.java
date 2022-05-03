@@ -6,6 +6,7 @@ import org.example.entities.Accounts;
 import org.example.entities.Tickets;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDaoImpl implements EmployeeDao {
@@ -31,7 +32,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
             }
 
         } catch (SQLException e) {
-            ;
             e.printStackTrace();
         }
 
@@ -104,6 +104,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public List<Tickets> getPast(int user_id) {
         CustomArrayList<Tickets> tickets = new CustomArrayList<>(); // here I didn't import ArrayList yet because we need to make the custom one.
         // I'm only selecting past approved tickets. (should I include the rejected ones too..?
+        // I think they want us to select all tickets except pending tickets.
         String sql = "SELECT * FROM ticket WHERE user_id =? AND (state = 'approved' OR state = 'denied');";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -116,7 +117,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }catch (SQLException e) {
             e.printStackTrace();
         }
-        return tickets;
+        return new ArrayList<>();
     }
 
     @Override
@@ -134,7 +135,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }catch (SQLException e) {
             e.printStackTrace();
         }
-        return tickets;
+        return null;
     }
 
     public List<Tickets> getHistory(int user_id) {
@@ -151,7 +152,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }catch (SQLException e) {
             e.printStackTrace();
         }
-        return tickets;
+        return null;
     }
 
 
