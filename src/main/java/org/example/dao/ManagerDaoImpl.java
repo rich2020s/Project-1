@@ -5,6 +5,7 @@ import org.example.ConnectionFactory;
 import org.example.dataStructure.CustomArrayList;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 
 import org.example.entities.Tickets;
 
@@ -23,7 +24,7 @@ public class ManagerDaoImpl implements ManagerDao{
             preparedStatement.setString(1, "pending");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Tickets ticket = new Tickets(rs.getInt("id"), rs.getDate("created_at"), rs.getInt("user_id"),
+                Tickets ticket = new Tickets(rs.getInt("id"), rs.getObject("created_at", LocalDateTime.class), rs.getInt("user_id"),
                         rs.getDouble("price"), rs.getString("description"), rs.getString("state"));
                 tickets.add(ticket);
             }
@@ -41,7 +42,7 @@ public class ManagerDaoImpl implements ManagerDao{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Tickets ticket = new Tickets(rs.getInt("id"), rs.getDate("date"), rs.getInt("user_id"),
+                Tickets ticket = new Tickets(rs.getInt("id"), rs.getObject("created_at", LocalDateTime.class), rs.getInt("user_id"),
                         rs.getDouble("price"), rs.getString("description"), rs.getString("state"));
                 tickets.add(ticket);
             }
@@ -129,7 +130,8 @@ public class ManagerDaoImpl implements ManagerDao{
             ResultSet rs = preparedStatement.executeQuery();
             if (!rs.next()) System.out.println("no ticket found");
             else {
-                ticket = new Tickets(rs.getInt("id"), rs.getDate("created_at"), rs.getInt("user_id"),
+                System.out.println( rs.getObject("created_at", LocalDateTime.class));
+                ticket = new Tickets(rs.getInt("id"), rs.getObject("created_at", LocalDateTime.class), rs.getInt("user_id"),
                     rs.getDouble("price"), rs.getString("description"), rs.getString("state"));
             }
         } catch (SQLException e) {
