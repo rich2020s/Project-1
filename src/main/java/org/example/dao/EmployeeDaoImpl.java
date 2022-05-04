@@ -6,6 +6,7 @@ import org.example.entities.Accounts;
 import org.example.entities.Tickets;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +88,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public Tickets getTicket(ResultSet resultSet) {
         try {
             int id = resultSet.getInt("id");
-            Date date = resultSet.getDate("date");
+            LocalDateTime date = resultSet.getObject("created_at", LocalDateTime.class);
             int user_id = resultSet.getInt("user_id");
             double price = resultSet.getDouble("price");
             String description = resultSet.getString("description");

@@ -1,5 +1,6 @@
 package org.example.entities;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Tickets {
@@ -9,13 +10,13 @@ public class Tickets {
     // price: DECIMAL (15,2)
 
     private int id;
-    private Date created_at;
+    private LocalDateTime created_at;
     private int user_id;
     private double price;
     private String description;
     private String state;
 
-    public Tickets(int id, Date date, int user_id, double price, String description, String state) {
+    public Tickets(int id, LocalDateTime date, int user_id, double price, String description, String state) {
         this.id = id;
         this.created_at = date;
         this.user_id = user_id;
@@ -38,11 +39,11 @@ public class Tickets {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return created_at;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.created_at = date;
     }
 
