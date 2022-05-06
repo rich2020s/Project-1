@@ -13,6 +13,11 @@ public class ConnectionFactory {
 
     public static Connection getConnection() {
         if(connection == null) {
+            try {
+                Class.forName("org.postgresql.Driver");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
             ResourceBundle bundle = ResourceBundle.getBundle("dbConfig");
             String url = bundle.getString("url");
             String username = bundle.getString("username");
