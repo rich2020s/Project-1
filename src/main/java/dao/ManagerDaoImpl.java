@@ -1,15 +1,14 @@
 package dao;
-//
+
 import org.example.ConnectionFactory;
 import entities.Tickets;
 import java.sql.*;
 import dataStructure.CustomArrayList;
 import java.time.LocalDateTime;
-//
+
 public class ManagerDaoImpl implements ManagerDao {
-//
     Connection connection;
-//    // When we instantiate, we get this connection.
+    // When we instantiate, we get this connection.
     public ManagerDaoImpl() {
         connection = ConnectionFactory.getConnection();
     }
@@ -70,7 +69,6 @@ public class ManagerDaoImpl implements ManagerDao {
         }
         return false;
     }
-
     @Override
     public boolean denyTicket(int id) {
         String sql = "UPDATE tickets SET state = 'denied' WHERE id = ? and state = 'pending'";
@@ -85,10 +83,9 @@ public class ManagerDaoImpl implements ManagerDao {
         }
         return false;
     }
-
     @Override
     public void initTables () throws SQLException {
-        String accountsQuery = "DROP TABLE accounts if exists; CREATE TABLE accounts (id SERIAL PRIMARY KEY, username VARCHAR(50), password VARCHAR (50)," +
+        String accountsQuery = "DROP TABLE accounts if exists; CREATE TABLE accounts (id SERIAL PRIMARY KEY, username VARCHAR(50) unique, password VARCHAR (50)," +
                 " user_type VARCHAR(1))";
         String ticketsQuery = "DROP TABLE tickets if exists; CREATE TABLE tickets (id SERIAL PRIMARY KEY, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, user_id integer references accounts(id), price decimal(10,2), description VARCHAR(100), state VARCHAR(50));";
         try {
@@ -111,10 +108,7 @@ public class ManagerDaoImpl implements ManagerDao {
             preparedStatement.setInt(1, ticket.getUser_id());
             preparedStatement.setDouble(2, ticket.getPrice());
             preparedStatement.setString(3, ticket.getDescription());
-            int success = preparedStatement.executeUpdate();
-            if (success == 0) {
-                throw new SQLException("Inserted tickets failed.");
-            }
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -148,18 +142,15 @@ public class ManagerDaoImpl implements ManagerDao {
             e.printStackTrace();
         }
     }
+
     @Override
-    public void getEmployee() {
-        String sql = "SELECT * FROM accounts";
+    public void dropTable() {
+        String sql = "drop table accounts if exists; drop table tickets if exists;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                System.out.print("account id:" + rs.getInt("id"));
-                System.out.println("username: " + rs.getString("username"));
-            }
-        }catch (SQLException e) {
-                e.printStackTrace();
-            }
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
