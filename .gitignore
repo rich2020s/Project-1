@@ -1,2 +1,4 @@
-src/main/resources/dbConfig.properties
+resources/
+dbConfig
+.DS_Store
 

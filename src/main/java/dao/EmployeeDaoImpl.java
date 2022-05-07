@@ -7,6 +7,7 @@ import org.example.ConnectionFactory;
 import entities.Tickets;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 
@@ -31,7 +32,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
             }
 
         } catch (SQLException e) {
-            ;
             e.printStackTrace();
         }
 
@@ -91,7 +91,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public Tickets getTicket(ResultSet resultSet) {
         try {
             int id = resultSet.getInt("id");
-            Timestamp created_at = resultSet.getTimestamp("created_at");
+            LocalDateTime created_at = resultSet.getObject("created_at", LocalDateTime.class);
             int user_id = resultSet.getInt("user_id");
             double price = resultSet.getDouble("price");
             String description = resultSet.getString("description");
@@ -156,6 +156,4 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }
         return tickets;
     }
-
-
 }

@@ -24,5 +24,31 @@
         <servlet-name>employeeServlet</servlet-name>
         <url-pattern>/employee</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getPendingRequests</servlet-name>
+        <servlet-class>servlets.GetPendingRequests</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getPendingRequests</servlet-name>
+        <url-pattern>/pending-requests</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>getAllTickets</servlet-name>
+        <servlet-class>servlets.GetAllTickets</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getAllTickets</servlet-name>
+        <url-pattern>/all-tickets</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>approveOrDenyTicket</servlet-name>
+        <servlet-class>servlets.ApproveOrDenyTicket</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>approveOrDenyTicket</servlet-name>
+        <url-pattern>/ticket</url-pattern>
+    </servlet-mapping>
 </web-app>
 
