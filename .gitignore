@@ -1,4 +1,5 @@
 resources/
-dbConfig
+dbConfig.properties
+target/
 .DS_Store
 

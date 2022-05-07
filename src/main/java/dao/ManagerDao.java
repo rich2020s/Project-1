@@ -14,5 +14,5 @@ public interface ManagerDao {
     public void insertRequest(Tickets ticket);
     public Tickets getTicketsById(int id);
     public void insertFakeEmployee();
-    public void getEmployee();
+    public void dropTable();
 }
