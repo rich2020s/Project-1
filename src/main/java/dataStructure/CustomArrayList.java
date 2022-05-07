@@ -60,7 +60,9 @@ public class CustomArrayList <T> implements CustomList<T> {
         // System.out.println("Size: " + size);
     }
 
-
+    public int size() {
+        return this.size;
+    }
 
     public void setElements(Object[] elements) {
         this.elements = elements;

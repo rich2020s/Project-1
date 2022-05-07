@@ -12,9 +12,7 @@ public class Accounts {
 
 
 
-    public Accounts() {
-
-    }
+    public Accounts() {}
 
     public Accounts(String username, String password) {
         this.username = username;
