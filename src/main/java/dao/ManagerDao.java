@@ -11,8 +11,8 @@ public interface ManagerDao {
     public boolean acceptTicket(int id);
     public boolean denyTicket(int id);
     public void initTables() throws SQLException;
-    public void insertRequest(Tickets ticket);
+    public boolean insertRequest(Tickets ticket);
     public Tickets getTicketsById(int id);
     public void insertFakeEmployee();
-    public void dropTable();
+    public void dropTable ();
 }

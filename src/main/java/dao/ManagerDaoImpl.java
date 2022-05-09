@@ -86,7 +86,7 @@ public class ManagerDaoImpl implements ManagerDao {
     @Override
     public void initTables () throws SQLException {
         String accountsQuery = "DROP TABLE accounts if exists; CREATE TABLE accounts (id SERIAL PRIMARY KEY, username VARCHAR(50) unique, password VARCHAR (50)," + " user_type VARCHAR(1))";
-        String ticketsQuery = "DROP TABLE tickets if exists; CREATE TABLE tickets (id SERIAL PRIMARY KEY, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, user_id integer references accounts(id), price decimal(10,2), description VARCHAR(100), state VARCHAR(50));";
+        String ticketsQuery = "DROP TABLE tickets if exists; CREATE TABLE tickets (id SERIAL PRIMARY KEY, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, user_id integer references accounts(id), price decimal(10,2) check price > 0, description VARCHAR(100), state VARCHAR(50));";
         try {
             connection.setAutoCommit(false);
             PreparedStatement prepareAccountsTable = connection.prepareStatement(accountsQuery);
@@ -97,11 +97,12 @@ public class ManagerDaoImpl implements ManagerDao {
         } catch (SQLException e) {
             connection.rollback();
             System.out.println("Transaction is being rollback.");
+        } finally {
+            connection.setAutoCommit(true);
         }
-        connection.setAutoCommit(true);
     }
     @Override
-    public void insertRequest(Tickets ticket) {
+    public boolean insertRequest(Tickets ticket) {
         String sql = "INSERT INTO tickets (id, created_at, user_id, price, description, state) VALUES(default, default, ?, ?, ?, 'pending')";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -111,7 +112,9 @@ public class ManagerDaoImpl implements ManagerDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
     @Override
     public Tickets getTicketsById(int id) {
@@ -144,13 +147,14 @@ public class ManagerDaoImpl implements ManagerDao {
     }
 
     @Override
-    public void dropTable() {
+    public void dropTable () {
         String sql = "drop table accounts if exists; drop table tickets if exists;";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Something went wrong when dropping table");
         }
     }
 }
