@@ -115,12 +115,4 @@ public class managerDaoTest {
     public void testSelectingTicketById() {
         Tickets ticket = managerDao.getTicketsById(0);
     }
-//    @Test
-//    public void test() {
-//        try {
-//            managerDao.initTables(true);
-//        } catch (SQLException e) {
-//            System.out.println(e.getLocalizedMessage());
-//        }
-//    }
 }
