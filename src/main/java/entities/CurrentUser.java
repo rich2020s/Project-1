@@ -1,4 +1,4 @@
-package entities;
+package org.example.entities;
 
 public class CurrentUser {
     private static Accounts currentUser;

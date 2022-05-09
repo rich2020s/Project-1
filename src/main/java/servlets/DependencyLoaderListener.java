@@ -1,4 +1,4 @@
-package servlets;
+package org.example.servlets;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

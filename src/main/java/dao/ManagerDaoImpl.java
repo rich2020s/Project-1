@@ -1,7 +1,9 @@
-package dao;
+package org.example.dao;
 
 import org.example.ConnectionFactory;
+
 import entities.Tickets;
+
 import java.sql.*;
 import dataStructure.CustomArrayList;
 import java.time.LocalDateTime;

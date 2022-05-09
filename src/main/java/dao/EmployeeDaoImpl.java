@@ -27,14 +27,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
             int count = preparedStatement.executeUpdate();
             if (count == 1) {
                 System.out.println("Employee account added successfully!");
-            } else {
-                System.out.println("Something when wrong adding the new employee account.");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        // catch (SQLException e) {
     }
 
     @Override
@@ -55,16 +53,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 System.out.println("Login successful!");
                 return employee;
             } else {
-                System.out.println("Employee login failed.");
-                System.exit(0);
-                return null;
-            }
-
+                throw new SQLException("Employee login failed");}
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
-
     }
 
     @Override
@@ -78,10 +71,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             int count = preparedStatement.executeUpdate();
             if (count == 1) {
                 System.out.println("Reimbursement ticket submitted, please wait for approval.");
-            } else {
-                System.out.println("Something when wrong submitting the ticket.");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -156,4 +146,47 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }
         return tickets;
     }
-}
+
+    @Override
+    public void initTables() {
+        String sqlAccounts = "CREATE TABLE IF NOT EXISTS accounts (id SERIAL PRIMARY KEY, username VARCHAR(50) UNIQUE NOT NULL, password VARCHAR (50), user_type VARCHAR(1));";
+        String sqlTickets = "CREATE TABLE IF NOT EXISTS tickets (id SERIAL PRIMARY KEY, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, user_id integer, price decimal(10,2) CHECK (price > 0), description VARCHAR(100), state VARCHAR(50));";
+        try {
+            Statement statementAccounts = connection.createStatement();
+            statementAccounts.execute(sqlAccounts);
+            Statement statementTickets = connection.createStatement();
+            statementTickets.execute(sqlTickets);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @Override
+    public void fillTickets() {
+        String sql = "INSERT INTO tickets (id, created_at, user_id, price, description, state) VALUES(default, default, 1, 3.14, 'last Friday', 'pending');";
+        sql += "INSERT INTO tickets (id, created_at, user_id, price, description, state) VALUES(default, default, 1, 3.14, 'last Friday', 'approved');";
+        sql += "INSERT INTO tickets (id, created_at, user_id, price, description, state) VALUES(default, default, 1, 3.14, 'last Friday', 'denied');";
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void dropTables() {
+        String sqla = "DROP TABLE IF EXISTS accounts;";
+        String sqlt = "DROP TABLE IF EXISTS tickets;";
+        try {
+            Statement statementAccounts = connection.createStatement();
+            statementAccounts.execute(sqla);
+            Statement statementTickets = connection.createStatement();
+            statementTickets.execute(sqlt);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    }

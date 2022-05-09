@@ -1,7 +1,8 @@
-package dao;
+package org.example.dao;
 
 import dataStructure.CustomArrayList;
 import entities.Tickets;
+
 
 import java.sql.SQLException;
 
