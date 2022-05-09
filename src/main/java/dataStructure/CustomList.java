@@ -1,4 +1,4 @@
-package dataStructure;
+package org.example.dataStructure;
 
 // Generic List interface
 public interface CustomList<T>{

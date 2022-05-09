@@ -1,6 +1,6 @@
-package dao;
+package org.example.dao;
 
-import entities.Tickets;
+import org.example.entities.Tickets;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -1,7 +1,7 @@
-package dao;
+package org.example.dao;
 
 import org.example.ConnectionFactory;
-import entities.Tickets;
+import org.example.entities.Tickets;
 
 import java.sql.*;
 import java.util.ArrayList;

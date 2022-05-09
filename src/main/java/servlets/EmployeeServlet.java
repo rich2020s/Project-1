@@ -1,13 +1,12 @@
-package servlets;
+package org.example.servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dao.EmployeeDao;
-import dao.EmployeeDaoImpl;
-import dataStructure.CustomArrayList;
-import dataStructure.CustomList;
-import entities.Accounts;
-import entities.CurrentUser;
-import entities.Tickets;
+import org.example.dao.EmployeeDao;
+import org.example.dao.EmployeeDaoImpl;
+import org.example.dataStructure.CustomList;
+import org.example.entities.Accounts;
+import org.example.entities.CurrentUser;
+import org.example.entities.Tickets;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
