@@ -85,8 +85,7 @@ public class ManagerDaoImpl implements ManagerDao {
     }
     @Override
     public void initTables () throws SQLException {
-        String accountsQuery = "DROP TABLE accounts if exists; CREATE TABLE accounts (id SERIAL PRIMARY KEY, username VARCHAR(50) unique, password VARCHAR (50)," +
-                " user_type VARCHAR(1))";
+        String accountsQuery = "DROP TABLE accounts if exists; CREATE TABLE accounts (id SERIAL PRIMARY KEY, username VARCHAR(50) unique, password VARCHAR (50)," + " user_type VARCHAR(1))";
         String ticketsQuery = "DROP TABLE tickets if exists; CREATE TABLE tickets (id SERIAL PRIMARY KEY, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, user_id integer references accounts(id), price decimal(10,2), description VARCHAR(100), state VARCHAR(50));";
         try {
             connection.setAutoCommit(false);
@@ -99,6 +98,7 @@ public class ManagerDaoImpl implements ManagerDao {
             connection.rollback();
             System.out.println("Transaction is being rollback.");
         }
+        connection.setAutoCommit(true);
     }
     @Override
     public void insertRequest(Tickets ticket) {

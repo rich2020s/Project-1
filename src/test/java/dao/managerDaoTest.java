@@ -31,15 +31,6 @@ public class managerDaoTest {
         managerDao.insertRequest(ticket);
     }
     @Test
-    public void testFakeEmployee() {
-//        Tickets ticket = new Tickets(1, 4, "candy");
-//        managerDao.insertFakeEmployee();
-//        managerDao.insertFakeEmployee();
-        managerDao.dropTable();
-        managerDao.insertFakeEmployee();
-//        managerDao.getEmployee();
-    }
-    @Test
     public void testInsertTickets() {
         Tickets ticket = new Tickets(1, 100, "transportation");
         managerDao.insertRequest(ticket);
@@ -124,4 +115,12 @@ public class managerDaoTest {
     public void testSelectingTicketById() {
         Tickets ticket = managerDao.getTicketsById(0);
     }
+//    @Test
+//    public void test() {
+//        try {
+//            managerDao.initTables(true);
+//        } catch (SQLException e) {
+//            System.out.println(e.getLocalizedMessage());
+//        }
+//    }
 }
