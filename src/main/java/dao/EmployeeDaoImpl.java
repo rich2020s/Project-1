@@ -147,7 +147,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return tickets;
     }
 
-
     @Override
     public void initTables() {
         String sqlAccounts = "CREATE TABLE IF NOT EXISTS accounts (id SERIAL PRIMARY KEY, username VARCHAR(50) UNIQUE NOT NULL, password VARCHAR (50), user_type VARCHAR(1));";

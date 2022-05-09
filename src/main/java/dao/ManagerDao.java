@@ -1,17 +1,19 @@
 package org.example.dao;
 
-import org.example.entities.Tickets;
+import dataStructure.CustomArrayList;
+import entities.Tickets;
+
 
 import java.sql.SQLException;
-import java.util.List;
 
 public interface ManagerDao {
-//        public void login(String username, String password);
-//        public List<Account> viewAccount(int userId);
-        public List<Tickets> viewLog();
-        public void appAccount(int accountId, int customerId);
-        public void rejAccount(int accountId, int customerId);
-
-    void initTables() throws SQLException;
-    int insertRequest() throws SQLException;
+    public CustomArrayList<Tickets> viewAllPendingTickets();
+    public CustomArrayList<Tickets> viewAllTickets();
+    public boolean acceptTicket(int id);
+    public boolean denyTicket(int id);
+    public void initTables() throws SQLException;
+    public boolean insertRequest(Tickets ticket);
+    public Tickets getTicketsById(int id);
+    public void insertFakeEmployee();
+    public void dropTable ();
 }

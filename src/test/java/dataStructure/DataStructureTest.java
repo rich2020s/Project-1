@@ -1,4 +1,5 @@
-package org.example;
+
+package dataStructure;
 
 import dataStructure.CustomArrayList;
 import dataStructure.CustomList;
