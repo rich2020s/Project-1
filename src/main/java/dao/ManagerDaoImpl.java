@@ -1,4 +1,4 @@
-package org.example.dao;
+package dao;
 
 import org.example.ConnectionFactory;
 
@@ -24,7 +24,7 @@ public class ManagerDaoImpl implements ManagerDao {
             preparedStatement.setString(1, "pending");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Tickets ticket = new Tickets(rs.getInt("id"), rs.getObject("created_at", LocalDateTime.class), rs.getInt("user_id"),
+                Tickets ticket = new Tickets(rs.getInt("id"), rs.getTimestamp("created_at"), rs.getInt("user_id"),
                         rs.getDouble("price"), rs.getString("description"), rs.getString("state"));
                 tickets.add(ticket);
             }
@@ -36,13 +36,13 @@ public class ManagerDaoImpl implements ManagerDao {
 
     @Override
     public CustomArrayList<Tickets> viewAllTickets() {
-        String sql = "SELECT * FROM tickets";
+        String sql = "SELECT * FROM tickets ORDER BY created_at;";
         CustomArrayList<Tickets> tickets = new CustomArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Tickets ticket = new Tickets(rs.getInt("id"), rs.getObject("created_at", LocalDateTime.class), rs.getInt("user_id"),
+                Tickets ticket = new Tickets(rs.getInt("id"), rs.getTimestamp("created_at"), rs.getInt("user_id"),
                         rs.getDouble("price"), rs.getString("description"), rs.getString("state"));
                 tickets.add(ticket);
             }
@@ -128,7 +128,7 @@ public class ManagerDaoImpl implements ManagerDao {
             ResultSet rs = preparedStatement.executeQuery();
             if (!rs.next()) throw new SQLException("Fail to get ticket.");
             else {
-                ticket = new Tickets(rs.getInt("id"), rs.getObject("created_at", LocalDateTime.class), rs.getInt("user_id"),
+                ticket = new Tickets(rs.getInt("id"), rs.getTimestamp("created_at"), rs.getInt("user_id"),
                     rs.getDouble("price"), rs.getString("description"), rs.getString("state"));
             }
         } catch (SQLException e) {

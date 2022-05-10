@@ -3,7 +3,6 @@ package dao;
 import dataStructure.CustomList;
 import entities.Accounts;
 import entities.Tickets;
-import org.h2.jdbc.JdbcSQLException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

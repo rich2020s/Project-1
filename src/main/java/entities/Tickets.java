@@ -1,4 +1,4 @@
-package org.example.entities;
+package entities;
 
 
 import java.sql.Timestamp;
@@ -12,7 +12,7 @@ public class Tickets {
     // price: DECIMAL (15,2)
 
     private int id;
-    private LocalDateTime created_at;
+    private Timestamp created_at;
     private int user_id;
     private double price;
     private String description;
@@ -27,7 +27,7 @@ public class Tickets {
         this.description = description;
     }
 
-    public Tickets(int id, LocalDateTime created_at, int user_id, double price, String description, String state) {
+    public Tickets(int id, Timestamp created_at, int user_id, double price, String description, String state) {
         this.id = id;
         this.created_at = created_at;
         this.user_id = user_id;
@@ -44,11 +44,11 @@ public class Tickets {
         this.id = id;
     }
 
-    public LocalDateTime getCreated_at() {
+    public Timestamp getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(LocalDateTime date) {
+    public void setCreated_at(Timestamp date) {
         this.created_at = created_at;
     }
 

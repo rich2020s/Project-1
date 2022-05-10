@@ -1,4 +1,4 @@
-package org.example.dao;
+package dao;
 
 import dataStructure.CustomArrayList;
 import entities.Tickets;

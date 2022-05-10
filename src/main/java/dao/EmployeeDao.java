@@ -11,9 +11,9 @@ public interface EmployeeDao {
     public void register (Accounts employee);
     public Accounts login (Accounts account);
     public void apply(Tickets ticket);
-    public CustomList<Tickets> getPast(Accounts account);
-    public CustomList<Tickets> getPending(Accounts account);
-    public CustomList<Tickets> getHistory(Accounts account);
+    public CustomArrayList<Tickets> getPast(Accounts account);
+    public CustomArrayList<Tickets> getPending(Accounts account);
+    public CustomArrayList<Tickets> getHistory(Accounts account);
 
     public void initTables();
     public void fillTickets();

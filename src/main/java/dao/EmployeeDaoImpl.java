@@ -37,7 +37,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Accounts login(Accounts account) {
-        String sql = "SELECT * FROM accounts WHERE username = ? AND password = ? AND user_type = 'E';";
+        String sql = "SELECT * FROM accounts WHERE username = ? AND password = ?;";
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -81,7 +81,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public Tickets getTicket(ResultSet resultSet) {
         try {
             int id = resultSet.getInt("id");
-            LocalDateTime created_at = resultSet.getObject("created_at", LocalDateTime.class);
+            Timestamp created_at = resultSet.getTimestamp("created_at");
             int user_id = resultSet.getInt("user_id");
             double price = resultSet.getDouble("price");
             String description = resultSet.getString("description");
@@ -95,9 +95,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 
     @Override
-    public CustomList<Tickets> getPast(Accounts account) {
-        CustomList<Tickets> tickets = new CustomArrayList<>();
-        String sql = "SELECT * FROM tickets WHERE user_id =? AND (state = 'approved' OR state = 'denied');";
+    public CustomArrayList<Tickets> getPast(Accounts account) {
+        CustomArrayList<Tickets> tickets = new CustomArrayList<>();
+        String sql = "SELECT * FROM tickets WHERE user_id =? AND (state = 'approved' OR state = 'denied') ORDER BY id;";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,account.getId());
@@ -113,9 +113,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public CustomList<Tickets> getPending(Accounts account) {
-        CustomList<Tickets> tickets = new CustomArrayList<>(); // here I didn't import ArrayList yet because we need to make the custom one.
-        String sql = "SELECT * FROM tickets WHERE user_id =? AND state = 'pending';";
+    public CustomArrayList<Tickets> getPending(Accounts account) {
+        CustomArrayList<Tickets> tickets = new CustomArrayList<>(); // here I didn't import ArrayList yet because we need to make the custom one.
+        String sql = "SELECT * FROM tickets WHERE user_id =? AND state = 'pending' ORDER BY id;";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,account.getId());
@@ -130,9 +130,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return tickets;
     }
 
-    public CustomList<Tickets> getHistory(Accounts account) {
-        CustomList<Tickets> tickets = new CustomArrayList<>(); // here I didn't import ArrayList yet because we need to make the custom one.
-        String sql = "SELECT * FROM tickets WHERE user_id =?;";
+    public CustomArrayList<Tickets> getHistory(Accounts account) {
+        CustomArrayList<Tickets> tickets = new CustomArrayList<>(); // here I didn't import ArrayList yet because we need to make the custom one.
+        String sql = "SELECT * FROM tickets WHERE user_id =? ORDER BY id;";
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,account.getId());

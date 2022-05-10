@@ -1,12 +1,13 @@
-package org.example.servlets;
+package servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.dao.EmployeeDao;
-import org.example.dao.EmployeeDaoImpl;
-import org.example.dataStructure.CustomList;
-import org.example.entities.Accounts;
-import org.example.entities.CurrentUser;
-import org.example.entities.Tickets;
+import dao.EmployeeDao;
+import dao.EmployeeDaoImpl;
+import dataStructure.CustomArrayList;
+import dataStructure.CustomList;
+import entities.Accounts;
+import entities.CurrentUser;
+import entities.Tickets;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,11 +25,17 @@ public class EmployeeServlet extends HttpServlet {
         //getting past tickets
         if (req.getParameter("tickets").equals("past")){
             try {
-                CustomList<Tickets> pastTickets = employeeDao.getPast(currentUser.getCurrentUser());
-                ObjectMapper mapper = new ObjectMapper();
-                String json = mapper.writeValueAsString(pastTickets); // map the output to json
-                resp.setStatus(202);
-                resp.getWriter().print(json);
+                CustomArrayList<Tickets> pastTickets = employeeDao.getPast(currentUser.getCurrentUser());
+                for (int i = 0; i < pastTickets.size(); i++) {
+                    Tickets ticket = pastTickets.get(i);
+                    resp.getWriter().print("Ticket id: " + ticket.getId() + ", ");
+                    resp.getWriter().print("user_id: " + ticket.getUser_id() + ", ");
+                    resp.getWriter().print("price: $" + ticket.getPrice() + ", ");
+                    resp.getWriter().print("description: " + ticket.getDescription() + ", ");
+                    resp.getWriter().print("state: " + ticket.getState() + ", ");
+                    resp.getWriter().print("date: " + ticket.getCreated_at() + ".\n");
+                }
+                resp.setStatus(200);
             } catch (IOException e) {
                 resp.setStatus(500);
                 System.out.println(e.getLocalizedMessage());
@@ -38,11 +45,17 @@ public class EmployeeServlet extends HttpServlet {
         //getting pending tickets
         else if (req.getParameter("tickets").equals("pending")){
             try {
-                CustomList<Tickets> pendingTickets = employeeDao.getPending(currentUser.getCurrentUser());
-                ObjectMapper mapper = new ObjectMapper();
-                String json = mapper.writeValueAsString(pendingTickets); // map the output to json
-                resp.setStatus(202);
-                resp.getWriter().print(json);
+                CustomArrayList<Tickets> pendingTickets = employeeDao.getPending(currentUser.getCurrentUser());
+                for (int i = 0; i < pendingTickets.size(); i++) {
+                    Tickets ticket = pendingTickets.get(i);
+                    resp.getWriter().print("Ticket id: " + ticket.getId() + ", ");
+                    resp.getWriter().print("user_id: " + ticket.getUser_id() + ", ");
+                    resp.getWriter().print("price: $" + ticket.getPrice() + ", ");
+                    resp.getWriter().print("description: " + ticket.getDescription() + ", ");
+                    resp.getWriter().print("state: " + ticket.getState() + ", ");
+                    resp.getWriter().print("date: " + ticket.getCreated_at() + ".\n");
+                }
+                resp.setStatus(200);
             } catch (IOException e) {
                 resp.setStatus(500);
                 System.out.println(e.getLocalizedMessage());
@@ -52,11 +65,17 @@ public class EmployeeServlet extends HttpServlet {
         //getting all ticket history
         else if (req.getParameter("tickets").equals("all")){
             try {
-                CustomList<Tickets> allTickets = employeeDao.getHistory(currentUser.getCurrentUser());
-                ObjectMapper mapper = new ObjectMapper();
-                String json = mapper.writeValueAsString(allTickets); // map the output to json
-                resp.setStatus(202);
-                resp.getWriter().print(json);
+                CustomArrayList<Tickets> allTickets = employeeDao.getHistory(currentUser.getCurrentUser());
+                for (int i = 0; i < allTickets.size(); i++) {
+                    Tickets ticket = allTickets.get(i);
+                    resp.getWriter().print("Ticket id: " + ticket.getId() + ", ");
+                    resp.getWriter().print("user_id: " + ticket.getUser_id() + ", ");
+                    resp.getWriter().print("price: $" + ticket.getPrice() + ", ");
+                    resp.getWriter().print("description: " + ticket.getDescription() + ", ");
+                    resp.getWriter().print("state: " + ticket.getState() + ", ");
+                    resp.getWriter().print("date: " + ticket.getCreated_at() + ".\n");
+                }
+                resp.setStatus(200);
             } catch (IOException e) {
                 resp.setStatus(500);
                 System.out.println(e.getLocalizedMessage());
