@@ -11,14 +11,15 @@ some description
 ## Features
 List of features ready and TODOs for future development
 
-* Awesome feature 1
-* Awesome feature 2
-* Awesome feature 3
+* As an employee I can login and submit my tickets for reimbursement.
+* As an employee I can view my past tickets.
+* As a manager I can accept or deny reimbursement requests.
 
 To-do list:
 
 * Wow improvement to be done 1
 * Wow improvement to be done 2
+
 ## Getting Started
 (include git clone command) (include all environment setup steps)
 
@@ -31,4 +32,6 @@ Be sure to mention if the commands only work on a specific platform (eg. AWS, GC
 Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
 
 ## Contributors
+Dae Hyun Kim
+Rich Chan
 
