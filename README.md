@@ -11,8 +11,13 @@ some description
 ## Features
 List of features ready and TODOs for future development
 
-* As an employee I can login and submit my tickets for reimbursement.
+* As an employee I can register for a new account.
+* As an employee I can login.
+* As an employee I can submit my tickets for reimbursement.
 * As an employee I can view my past tickets.
+* As an employee I can view pending tickets.
+* As a manager I can view all pending requests.
+* As a manager I can view past tickets for all employees in the company.
 * As a manager I can accept or deny reimbursement requests.
 
 To-do list:
