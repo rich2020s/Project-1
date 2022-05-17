@@ -32,6 +32,6 @@ Be sure to mention if the commands only work on a specific platform (eg. AWS, GC
 Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
 
 ## Contributors
-Dae Hyun Kim
-Rich Chan
+Dae Hyun Kim  
+Rich Chan  
 
