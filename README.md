@@ -1,4 +1,4 @@
-# Project-1 REST API
+# Expense Reimbursement System (ERMS)
 
 ## Project Description
 some description
