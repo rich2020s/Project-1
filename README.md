@@ -23,13 +23,18 @@ List of features
 
 
 ## Getting Started
-1. Copy the repository.
-2. Clone the responsitory in local file. (git clone "repository url")
-3. Open the file on IntelliJ.
-4. (Under src/main) Create a resources folder and dbConfig.properties file inside the folder. 
-5. Configure the dbConfig with the local Postgres database. <perhaps include a sample config form here>
-6. Run TomCat configuration to start the program.
-7. Test the functionalities using Postman.
+1. `git clone git@github.com:rich2020s/Project-1.git`
+4. Open the file on IntelliJ.
+5. (Under src/main) Create a resources folder and dbConfig.properties file inside the folder. 
+7. Configure the dbConfig with the local Postgres database.
+```
+url = jdbc:postgresql://localhost:5432/yourDB
+username = {your username}
+password = {your password}
+```
+6. navigation -> run -> edit configurations -> add New Configuration(+) -> Smart Tomcat. Depolyment directory is `Project-1/src/main/webapp`. Then Click OK.
+8. Run TomCat configuration to start the program.
+9. Test the functionalities using Postman.
   
 (include all environment setup steps)
 
