@@ -32,7 +32,7 @@ url = jdbc:postgresql://localhost:5432/yourDB
 username = {your username}
 password = {your password}
 ```
-6. navigation -> run -> edit configurations -> add New Configuration(+) -> Smart Tomcat. Depolyment directory is `Project-1/src/main/webapp`. Then Click OK.
+5. navigation -> run -> edit configurations -> add New Configuration(+) -> Smart Tomcat. Depolyment directory is `Project-1/src/main/webapp`. Then Click OK.
 8. Run TomCat configuration to start the program.
 9. Test the functionalities using Postman.
   
