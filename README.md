@@ -44,7 +44,7 @@ Be sure to mention if the commands only work on a specific platform (eg. AWS, GC
 * All the code required to get started
 * Images of what it should look like
 ## Usage
-Test the API functionalities using Postman. <should we include any screenshots?>
+Test the API functionalities using Postman.
 
 ## Contributors
 Dae Hyun Kim  
